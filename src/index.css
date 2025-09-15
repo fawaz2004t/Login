@@ -1,10 +1,18 @@
-body {
-  font-family: Arial, sans-serif;
-  background-color: lightslategray;
+/* ✅ General Reset & Base Styles */
+* {
   margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
 }
 
+body {
+  background-color: #f4f4f4;
+  color: #333;
+  line-height: 1.6;
+}
 
+/* ✅ Navbar */
 .navbar {
   display: flex;
   justify-content: space-between;
@@ -19,57 +27,58 @@ body {
   z-index: 1000;
 }
 
-.nav-logo {
+.nav-container {
+  max-width: 1100px;
+  margin: 0 auto;
   display: flex;
+  justify-content: space-between;
   align-items: center;
 }
 
-.logo-img {
-  height: 60px;
-  width: auto;
-  cursor: pointer;
+.nav-logo .logo {
+  height: 40px;
 }
 
 .nav-links {
   list-style: none;
   display: flex;
-  gap: 15px;
-  margin: 0;
-  padding: 0;
-}
-
-.nav-links li {
-  display: inline;
+  gap: 20px;
 }
 
 .nav-links a {
   text-decoration: none;
-  color: white;
+  color: #333;
   font-weight: 500;
   transition: color 0.2s;
 }
 
 .nav-links a:hover {
-  color: #d1e7ff;
+  color: #007bff;
 }
 
-.login-container {
+/* ✅ Auth Pages (Login & Signup containers) */
+.login-container,
+.signup-container {
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: calc(100vh - 60px); 
-  padding-top: 80px; 
+  background-color: #f4f4f4;
+  padding-top: 80px; /* push down for navbar */
 }
 
-.login-form {
-  background: white;  
-  padding: 20px 30px;
-  border-radius: 10px;
+/* ✅ Form Styles */
+.login-form,
+.signup-form {
+  background: white;
+  padding: 30px 40px;
+  border-radius: 12px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-  width: 300px;
+  width: 350px;
 }
 
-.login-form h2 {
+.login-form h2,
+.signup-form h2 {
   text-align: center;
   margin-bottom: 20px;
 }
@@ -86,9 +95,9 @@ body {
 
 .form-control input {
   width: 100%;
-  padding: 8px;
+  padding: 10px;
   border: 1px solid #ccc;
-  border-radius: 5px;
+  border-radius: 6px;
 }
 
 .error {
@@ -97,16 +106,18 @@ body {
   margin-top: 5px;
 }
 
+/* ✅ Buttons */
 .submit-btn {
   width: 100%;
-  padding: 10px;
-  background: black;
+  padding: 12px;
+  background: #007bff;
   color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 6px;
   cursor: pointer;
+  font-weight: 600;
 }
 
 .submit-btn:hover {
-   background: #0056b3;
+  background: #0056b3;
 }

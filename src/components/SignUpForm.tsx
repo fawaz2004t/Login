@@ -1,28 +1,29 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import { useAuth } from "../context/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
 
-interface SignUpFormInputs {
+type SignupInputs = {
   name: string;
   email: string;
   password: string;
   confirmPassword: string;
-}
+};
 
 const SignUpForm: React.FC = () => {
+  const { login } = useAuth();
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm<SignUpFormInputs>();
+  } = useForm<SignupInputs>();
 
-  const navigate = useNavigate();
-  const passwordValue = watch("password");
-
-  const onSubmit = (data: SignUpFormInputs) => {
-    console.log("Sign Up Data:", data);
-    // Simulate successful sign up
+  const onSubmit = (data: SignupInputs) => {
+    console.log("User registered:", data);
+    login(); // auto-login after signup
     navigate("/dashboard");
   };
 
@@ -31,7 +32,7 @@ const SignUpForm: React.FC = () => {
       <form onSubmit={handleSubmit(onSubmit)} className="login-form">
         <h2>Sign Up</h2>
 
-        {/* Name */}
+
         <div className="form-control">
           <label>Name</label>
           <input
@@ -40,8 +41,7 @@ const SignUpForm: React.FC = () => {
           />
           {errors.name && <p className="error">{errors.name.message}</p>}
         </div>
-
-        {/* Email */}
+        
         <div className="form-control">
           <label>Email</label>
           <input
@@ -50,14 +50,13 @@ const SignUpForm: React.FC = () => {
               required: "Email is required",
               pattern: {
                 value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                message: "Enter a valid email address",
+                message: "Invalid email address",
               },
             })}
           />
           {errors.email && <p className="error">{errors.email.message}</p>}
         </div>
 
-        {/* Password */}
         <div className="form-control">
           <label>Password</label>
           <input
@@ -66,20 +65,16 @@ const SignUpForm: React.FC = () => {
               required: "Password is required",
               minLength: {
                 value: 8,
-                message: "Password must be at least 8 characters long",
+                message: "Password must be at least 8 characters",
               },
-              pattern: {
-                value: /^(?=.*[A-Z]).+$/,
-                message: "Password must contain at least one uppercase letter",
-              },
+              validate: (value) =>
+                /[A-Z]/.test(value) ||
+                "Password must contain at least one uppercase letter",
             })}
           />
-          {errors.password && (
-            <p className="error">{errors.password.message}</p>
-          )}
+          {errors.password && <p className="error">{errors.password.message}</p>}
         </div>
 
-        {/* Confirm Password */}
         <div className="form-control">
           <label>Confirm Password</label>
           <input
@@ -87,7 +82,7 @@ const SignUpForm: React.FC = () => {
             {...register("confirmPassword", {
               required: "Please confirm your password",
               validate: (value) =>
-                value === passwordValue || "Passwords do not match",
+                value === watch("password") || "Passwords do not match",
             })}
           />
           {errors.confirmPassword && (
@@ -95,11 +90,12 @@ const SignUpForm: React.FC = () => {
           )}
         </div>
 
-        <button type="submit" className="submit-btn">Sign Up</button>
-
-        <p className="signup-text">
-          Already have an account? <Link to="/signin">Sign In</Link>
-        </p>
+        <button type="submit" className="submit-btn">
+          Sign Up
+        </button>
+      <p className="signup-text">
+        Already have an account? <Link to="/login">Sign In</Link>
+      </p>
       </form>
     </div>
   );

@@ -7,7 +7,7 @@ const Dashboard: React.FC = () => {
       <div className="login-form">
         <h2>Welcome to your Dashboard 🎉</h2>
         <p>You are now signed in!</p>
-        <Link to="/signin" className="submit-btn" style={{ display: "block", textAlign: "center", marginTop: "20px" }}>
+        <Link to="/login" className="submit-btn" style={{ display: "block", textAlign: "center", marginTop: "20px" }}>
           Log Out
         </Link>
       </div>

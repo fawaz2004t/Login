@@ -1,24 +1,26 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import { useAuth } from "../context/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
 
-interface LoginFormInputs {
+type LoginInputs = {
   email: string;
   password: string;
-}
+};
 
 const LoginForm: React.FC = () => {
+  const { login } = useAuth();
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<LoginFormInputs>();
+  } = useForm<LoginInputs>();
 
-  const navigate = useNavigate();
-
-  const onSubmit = (data: LoginFormInputs) => {
-    console.log("Sign In Data:", data);
-    // Simulate successful login
+  const onSubmit = (data: LoginInputs) => {
+    console.log("Login successful:", data);
+    login(); // ✅ simulate authentication
     navigate("/dashboard");
   };
 
@@ -27,7 +29,6 @@ const LoginForm: React.FC = () => {
       <form onSubmit={handleSubmit(onSubmit)} className="login-form">
         <h2>Sign In</h2>
 
-        {/* Email */}
         <div className="form-control">
           <label>Email</label>
           <input
@@ -36,14 +37,13 @@ const LoginForm: React.FC = () => {
               required: "Email is required",
               pattern: {
                 value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                message: "Enter a valid email address",
+                message: "Invalid email address",
               },
             })}
           />
           {errors.email && <p className="error">{errors.email.message}</p>}
         </div>
 
-        {/* Password */}
         <div className="form-control">
           <label>Password</label>
           <input
@@ -52,20 +52,18 @@ const LoginForm: React.FC = () => {
               required: "Password is required",
               minLength: {
                 value: 8,
-                message: "Password must be at least 8 characters long",
+                message: "Password must be at least 8 characters",
               },
-              pattern: {
-                value: /^(?=.*[A-Z]).+$/,
-                message: "Password must contain at least one uppercase letter",
-              },
+              validate: (value) =>
+                /[A-Z]/.test(value) || "Password must contain an uppercase letter",
             })}
           />
-          {errors.password && (
-            <p className="error">{errors.password.message}</p>
-          )}
+          {errors.password && <p className="error">{errors.password.message}</p>}
         </div>
 
-        <button type="submit" className="submit-btn">Sign In</button>
+        <button type="submit" className="submit-btn">
+          Sign In
+        </button>
 
         <p className="signup-text">
           Don’t have an account? <Link to="/signup">Sign Up</Link>
