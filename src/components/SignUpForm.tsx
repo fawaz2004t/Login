@@ -1,4 +1,3 @@
-import React from "react";
 import { useForm } from "react-hook-form";
 import { useAuth } from "../context/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
@@ -10,7 +9,7 @@ type SignupInputs = {
   confirmPassword: string;
 };
 
-const SignUpForm: React.FC = () => {
+const SignUpForm = () => {
   const { login } = useAuth();
   const navigate = useNavigate();
 
