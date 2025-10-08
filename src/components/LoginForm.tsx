@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { useAuth } from "../context/AuthContext";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, Navigate } from "react-router-dom";
 
 type LoginInputs = {
   email: string;
@@ -8,19 +8,22 @@ type LoginInputs = {
 };
 
 const LoginForm = () => {
-  const { login } = useAuth();
+  const { login, isAuthenticated } = useAuth();
   const navigate = useNavigate();
-
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<LoginInputs>();
 
+  if (isAuthenticated) {
+    return <Navigate to="/todopage" replace />;
+  }
+
   const onSubmit = (data: LoginInputs) => {
     console.log("Login successful:", data);
-    login(); // ✅ simulate authentication
-    navigate("/dashboard");
+    login(data.email); 
+    navigate("/todopage");
   };
 
   return (

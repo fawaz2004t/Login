@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { useAuth } from "../context/AuthContext";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, Navigate } from "react-router-dom";
 
 type SignupInputs = {
   name: string;
@@ -10,7 +10,7 @@ type SignupInputs = {
 };
 
 const SignUpForm = () => {
-  const { login } = useAuth();
+  const { login, isAuthenticated } = useAuth();
   const navigate = useNavigate();
 
   const {
@@ -20,10 +20,14 @@ const SignUpForm = () => {
     formState: { errors },
   } = useForm<SignupInputs>();
 
+  if (isAuthenticated) {
+    return <Navigate to="/todopage" replace />;
+  }
+
   const onSubmit = (data: SignupInputs) => {
     console.log("User registered:", data);
     login(); // auto-login after signup
-    navigate("/dashboard");
+    navigate("/todopage");
   };
 
   return (

@@ -1,4 +1,4 @@
-/* ✅ General Reset & Base Styles */
+/*  General Reset & Base Styles */
 * {
   margin: 0;
   padding: 0;
@@ -12,7 +12,7 @@ body {
   line-height: 1.6;
 }
 
-/* ✅ Navbar */
+/*  Navbar */
 .navbar {
   display: flex;
   justify-content: space-between;
@@ -56,7 +56,7 @@ body {
   color: #007bff;
 }
 
-/* ✅ Auth Pages (Login & Signup containers) */
+/*  Auth Pages (Login & Signup containers) */
 .login-container,
 .signup-container {
   min-height: 100vh;
@@ -67,7 +67,7 @@ body {
   padding-top: 80px; /* push down for navbar */
 }
 
-/* ✅ Form Styles */
+/*  Form Styles */
 .login-form,
 .signup-form {
   background: white;
@@ -106,7 +106,7 @@ body {
   margin-top: 5px;
 }
 
-/* ✅ Buttons */
+/*  Buttons */
 .submit-btn {
   width: 100%;
   padding: 12px;
@@ -122,7 +122,7 @@ body {
   background: #0056b3;
 }
 
-/* ✅ NotFound Page */
+/*  NotFound Page */
 .not-found {
   min-height: 100vh;
   display: flex;
@@ -160,3 +160,116 @@ body {
   background: #0056b3;
 }
 
+.todo-container {
+  max-width: 500px;
+  margin: 40px auto;
+  margin-top: 200px;
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.todo-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.todo-input {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.todo-input input,
+.todo-input textarea {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.todo-input textarea {
+  resize: vertical;
+  min-height: 70px;
+}
+
+.todo-input button {
+  padding: 10px;
+  background: #28a745;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.2s;
+}
+
+.todo-input button:hover {
+  background: #218838;
+}
+
+.todo-list {
+  list-style: none;
+  padding: 0;
+}
+
+.todo-list li {
+  background: #f9f9f9;
+  padding: 12px;
+  margin-bottom: 12px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.todo-list li div:first-child {
+  max-width: 70%;
+}
+
+.todo-list strong {
+  font-size: 16px;
+  display: block;
+}
+
+.todo-list p {
+  margin: 5px 0;
+  font-size: 14px;
+  color: #555;
+}
+
+.todo-list button {
+  margin-left: 6px;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.todo-list button:first-child {
+  background: #ffc107;
+  color: black;
+}
+
+.todo-list button:first-child:hover {
+  background: #e0a800;
+}
+
+.todo-list button:last-child {
+  background: #dc3545;
+  color: white;
+}
+
+.todo-list button:last-child:hover {
+  background: #c82333;
+}
+
+.empty-message {
+  text-align: center;
+  color: gray;
+  font-style: italic;
+  margin-top: 20px;
+}

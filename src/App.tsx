@@ -2,9 +2,9 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import LoginForm from "./components/LoginForm";
 import SignupForm from "./components/SignUpForm";
-import Dashboard from "./pages/Dashboard";
 import ProtectedRoute from "./components/ProtectedRoute";
 import NotFound from "./pages/NotFound";
+import TodoPage from "./pages/TodoPage"
 
 const App = () => {
   return (
@@ -16,10 +16,10 @@ const App = () => {
         <Route path="/login" element={<LoginForm />} />
         <Route path="/signup" element={<SignupForm />} />
         <Route
-          path="/dashboard"
+          path="/todopage"
           element={
             <ProtectedRoute>
-              <Dashboard />
+              <TodoPage />
             </ProtectedRoute>
           }
         />

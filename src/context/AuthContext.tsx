@@ -3,7 +3,8 @@ import type { ReactNode } from "react";
 
 type AuthContextType = {
   isAuthenticated: boolean;
-  login: () => void;
+  userEmail: string | null;
+  login: (email: string) => void;
   logout: () => void;
 };
 
@@ -14,26 +15,35 @@ type ProviderProps = {
 };
 
 export const AuthProvider = ({ children }: ProviderProps) => {
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(() => {
-    return localStorage.getItem("isAuthenticated") === "true";
-  });
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [userEmail, setUserEmail] = useState<string | null>(null);
 
-  const login = () => {
+  useEffect(() => {
+    const savedAuth = localStorage.getItem("isAuthenticated");
+    const savedEmail = localStorage.getItem("userEmail");
+
+    if (savedAuth === "true" && savedEmail) {
+      setIsAuthenticated(true);
+      setUserEmail(savedEmail);
+    }
+  }, []);
+
+  const login = (email: string) => {
     setIsAuthenticated(true);
+    setUserEmail(email);
     localStorage.setItem("isAuthenticated", "true");
+    localStorage.setItem("userEmail", email);
   };
 
   const logout = () => {
     setIsAuthenticated(false);
-    localStorage.setItem("isAuthenticated", "false");
+    setUserEmail(null);
+    localStorage.removeItem("isAuthenticated");
+    localStorage.removeItem("userEmail");
   };
 
-  useEffect(() => {
-    localStorage.setItem("isAuthenticated", String(isAuthenticated));
-  }, [isAuthenticated]);
-
   return (
-    <AuthContext.Provider value={{ isAuthenticated, login, logout }}>
+    <AuthContext.Provider value={{ isAuthenticated, userEmail, login, logout }}>
       {children}
     </AuthContext.Provider>
   );
